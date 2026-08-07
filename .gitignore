@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Environments and editors
+.venv/
+.env
+.vscode/
+.idea/
+
+# Local models, data and secrets (the release checkpoint is explicitly kept)
+*.pt
+data/
+local_weights/
+*.db
+*.log
+.DS_Store

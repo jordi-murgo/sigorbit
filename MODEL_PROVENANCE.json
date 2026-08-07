@@ -1,0 +1,90 @@
+{
+  "format_version": 1,
+  "model_id": "sigorbit-c8-257-v1",
+  "architecture": "so2-canonicalized-c8",
+  "preprocess_version": "sigorbit-gray-square-257-v1",
+  "artifact": {
+    "path": "local-only: sigorbit-c8-257-v1.pt (excluded from Git/builds)",
+    "bytes": 17738933,
+    "sha256": "ff62889e2c5172762e894f4ee05162e0109d06c863b1fa83a7bcc6baf1dc0963",
+    "loader": "torch.load(weights_only=True)",
+    "public_license_status": "withheld_pending_CEDAR_and_BHSig260_permission",
+    "tracked_or_distributed": false
+  },
+  "source_training_artifact": {
+    "bytes": 312385643,
+    "sha256": "39384c2d7211bb1815b7cd8f65ba15aca26b83b89b8206205eadd9b416954399",
+    "selected_epoch_zero_based": 33,
+    "validation_top1": 100.0,
+    "validation_margin": 0.31266865134239197
+  },
+  "backbone_initializer": {
+    "description": "C8 backbone trained from random initialization with rotation augmentation",
+    "sha256": "d78ca347f1d5bc771f574a80975f146b9894922336c318cc7a75b02eeb348606"
+  },
+  "dataset": {
+    "hub_id": "rakshitdabral/Signature-Verification-Dataset",
+    "revision": "485e3b6f95ef93a9994b93459933770f69a2e554",
+    "data_addition_commit": "50fdf3d712f68b1884af7b8bbb31fb0e6e6f8dae",
+    "hub_card_declared_license": "mit",
+    "effective_upstream_license_status": "CEDAR_unlicensed; BHSig260_research_purpose_only",
+    "images": 7560,
+    "identities": 315,
+    "contains_forgeries": false,
+    "train": {
+      "images": 6000,
+      "identities": 250,
+      "composition": {
+        "CEDAR": 1320,
+        "BHSig260_Hindi": 3840,
+        "BHSig260_Bengali": 840
+      }
+    },
+    "validation": {
+      "images": 768,
+      "identities": 32,
+      "composition": {
+        "BHSig260_Bengali": 768
+      }
+    },
+    "test": {
+      "images": 792,
+      "identities": 33,
+      "composition": {
+        "BHSig260_Bengali": 792
+      }
+    },
+    "upstreams": [
+      {
+        "name": "CEDAR Signature Dataset",
+        "url": "https://cedar.buffalo.edu/NIJ/data/signatures.rar",
+        "archive_bytes": 253587033,
+        "archive_sha256": "f74b859352783b82399c1be48078b79ad637160ba11f16baf92911dd5568f4d6",
+        "used_images": 1320,
+        "used_subset": "all genuine full_org images",
+        "licence_evidence": "no explicit licence grant in official archive or project page",
+        "pixel_set_match": "55/55 identities; 1320/1320 images"
+      },
+      {
+        "name": "BHSig260",
+        "url": "https://drive.google.com/file/d/0B29vNACcjvzVc1RfVkg5dUh2b1E/view",
+        "archive_bytes": 48500114,
+        "archive_sha256": "560ea9a569e0735005ec1ba6bc413efb8770f6076bfa17fc57ba3fa6798301ff",
+        "used_images": 6240,
+        "used_subset": "all genuine Hindi and Bengali images",
+        "licence_evidence": "authors state public availability for research purposes; no MIT/open redistribution or commercial-use grant found",
+        "pixel_set_match": "260/260 identities; 6240/6240 images",
+        "paper_doi": "10.1109/DAS.2016.48"
+      }
+    ],
+    "audit_report": "docs/DATASET_LICENSE_AUDIT.md",
+    "release_decision": "do_not_publish_checkpoint_without_permission_or_counsel_approval"
+  },
+  "parity": {
+    "max_absolute_difference": 0.0,
+    "cosine_similarity": 1.0,
+    "bit_identical": true
+  },
+  "created_utc": "2026-08-07",
+  "audit_updated_utc": "2026-08-07"
+}

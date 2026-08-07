@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use SigOrbit, please cite this software and the e2cnn paper."
+title: "SigOrbit: Rotation-robust handwritten-signature embeddings"
+type: software
+authors:
+  - name: "SigOrbit contributors"
+version: 0.1.0
+date-released: 2026-08-07
+license: MIT
+references:
+  - type: article
+    title: "General E(2)-Equivariant Steerable CNNs"
+    authors:
+      - family-names: Weiler
+        given-names: Maurice
+      - family-names: Cesa
+        given-names: Gabriele
+    year: 2019
+    doi: 10.48550/arXiv.1911.08251

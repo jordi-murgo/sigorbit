@@ -1,0 +1,27 @@
+SigOrbit
+Copyright (c) 2026 SigOrbit contributors. Source code is MIT licensed.
+
+The local `sigorbit-c8-257-v1` checkpoint was used during pre-release
+engineering so extraction and parity could be tested, but it is excluded from
+Git and source/binary distributions. A 2026-08-07 pixel audit
+identified the training aggregate as genuine CEDAR and BHSig260 samples. CEDAR
+has no explicit licence grant; BHSig260 is stated only to be available “for
+research purposes”. This notice intentionally
+does not grant permission to redistribute the checkpoint. Do not publish it
+until upstream permission or counsel approval is recorded. No training images
+are included. See docs/DATASET_LICENSE_AUDIT.md.
+
+Runtime dependencies are not redistributed as source by this repository:
+- e2cnn: BSD 3-Clause Clear License, QUVA Lab / Qualcomm Technologies, Inc.
+- PyTorch: BSD 3-Clause License
+- NumPy and SciPy: BSD-family licenses
+- Pillow: HPND/MIT-CMU
+- FastAPI: MIT License
+
+The architecture builds on the concepts in:
+M. Weiler and G. Cesa, "General E(2)-Equivariant Steerable CNNs",
+NeurIPS 2019, arXiv:1911.08251.
+
+Downstream distributions must retain the notices required by their actual locked
+dependencies and should generate an SBOM/license report for shipped wheels or
+containers.
