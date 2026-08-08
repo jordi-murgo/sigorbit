@@ -1,5 +1,5 @@
 SigOrbit
-Copyright (c) 2026 SigOrbit contributors. Source code is MIT licensed.
+Copyright (c) 2026 Jordi Murgó. Source code is MIT licensed.
 
 The local `sigorbit-c8-257-v1` checkpoint was used during pre-release
 engineering so extraction and parity could be tested, but it is excluded from

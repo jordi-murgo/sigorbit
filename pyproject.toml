@@ -9,7 +9,8 @@ description = "Rotation-robust handwritten-signature embeddings with SO(2) canon
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-authors = [{ name = "SigOrbit contributors" }]
+authors = [{ name = "Jordi Murgó", email = "jordi.murgo@gmail.com" }]
+maintainers = [{ name = "Jordi Murgó", email = "jordi.murgo@gft.com" }]
 keywords = ["signature", "embeddings", "rotation-invariance", "equivariant-cnn", "biometrics"]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -20,6 +21,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
+
 dependencies = [
   "torch>=2.2",
   "numpy>=1.26",
@@ -27,6 +29,13 @@ dependencies = [
   "e2cnn>=0.2.3,<0.3",
   "scipy>=1.10",
 ]
+
+[project.urls]
+Homepage = "https://github.com/jordi-murgo/SigOrbit"
+Repository = "https://github.com/jordi-murgo/SigOrbit.git"
+Documentation = "https://github.com/jordi-murgo/SigOrbit#readme"
+Issues = "https://github.com/jordi-murgo/SigOrbit/issues"
+Changelog = "https://github.com/jordi-murgo/SigOrbit/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 api = [
@@ -48,7 +57,7 @@ sigorbit-api = "sigorbit.api:run"
 packages = ["src/sigorbit"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/sigorbit", "tests", "docs", "scripts", "README.md", "LICENSE", "NOTICE", "MODEL_PROVENANCE.json", "CITATION.cff", "CHANGELOG.md"]
+include = ["src/sigorbit", "tests", "docs", "scripts", "README.md", "LICENSE", "NOTICE", "MODEL_PROVENANCE.json", "CITATION.cff", "CITATION.bib", "CHANGELOG.md"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

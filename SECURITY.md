@@ -1,8 +1,9 @@
 # Security and biometric-data handling
 
-Report security issues privately to the repository maintainers before opening a
-public issue. A public security contact will be added before the first hosted
-release.
+Report security issues privately to Jordi Murgó at
+[jordi.murgo@gmail.com](mailto:jordi.murgo@gmail.com) or
+[jordi.murgo@gft.com](mailto:jordi.murgo@gft.com) before opening a public issue.
+Do not attach signatures, embeddings or other personal data to a public report.
 
 SigOrbit processes biometric-like data. Applications should:
 

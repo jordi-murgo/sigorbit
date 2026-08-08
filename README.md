@@ -1,7 +1,15 @@
 # SigOrbit
 
+[![CI](https://github.com/jordi-murgo/SigOrbit/actions/workflows/ci.yml/badge.svg)](https://github.com/jordi-murgo/SigOrbit/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 **Rotation-robust handwritten-signature embeddings with continuous SO(2)
 canonicalization and a C8-steerable backbone.**
+
+Created and maintained by **Jordi Murgó**
+([GitHub](https://github.com/jordi-murgo) ·
+[jordi.murgo@gmail.com](mailto:jordi.murgo@gmail.com) ·
+[jordi.murgo@gft.com](mailto:jordi.murgo@gft.com)).
 
 SigOrbit turns a cropped signature image into a deterministic, L2-normalized
 256-dimensional vector. It is designed for retrieval, clustering and downstream
@@ -154,6 +162,7 @@ src/sigorbit/preprocessing.py  versioned image contract
 src/sigorbit/encoder.py        public Python API
 src/sigorbit/api.py            minimal FastAPI example
 docs/                          architecture, model card, training and release notes
+CITATION.bib                   project and technical bibliography
 ```
 
 ## Responsible use and release status
@@ -175,5 +184,23 @@ or counsel approval is recorded.
 ## License and citation
 
 Source code: [MIT](LICENSE). Third-party notices: [NOTICE](NOTICE).
-If SigOrbit is useful in research, cite both this project and Weiler & Cesa's
-E(2)-steerable CNN work; see [`CITATION.cff`](CITATION.cff).
+Repository: <https://github.com/jordi-murgo/SigOrbit>.
+
+If SigOrbit is useful in research, cite the software as:
+
+```bibtex
+@software{murgo2026sigorbit,
+  author  = {Jordi Murgó},
+  title   = {{SigOrbit}: Rotation-Robust Handwritten-Signature Embeddings},
+  year    = {2026},
+  version = {0.1.0},
+  url     = {https://github.com/jordi-murgo/SigOrbit},
+  license = {MIT}
+}
+```
+
+The complete BibTeX bibliography—including the e2cnn, CEDAR and BHSig260
+references—is in [`CITATION.bib`](CITATION.bib); machine-readable citation
+metadata is in [`CITATION.cff`](CITATION.cff). Citing a dataset does not imply
+that it has an open licence; consult the
+[dataset licence audit](docs/DATASET_LICENSE_AUDIT.md).

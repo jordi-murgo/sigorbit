@@ -1,19 +1,54 @@
 cff-version: 1.2.0
-message: "If you use SigOrbit, please cite this software and the e2cnn paper."
+message: "If you use SigOrbit, please cite this software and its technical foundations."
 title: "SigOrbit: Rotation-robust handwritten-signature embeddings"
 type: software
 authors:
-  - name: "SigOrbit contributors"
+  - family-names: "Murgó"
+    given-names: "Jordi"
+    email: "jordi.murgo@gmail.com"
+contact:
+  - family-names: "Murgó"
+    given-names: "Jordi"
+    email: "jordi.murgo@gft.com"
 version: 0.1.0
 date-released: 2026-08-07
 license: MIT
+repository-code: "https://github.com/jordi-murgo/SigOrbit"
+url: "https://github.com/jordi-murgo/SigOrbit"
 references:
-  - type: article
+  - type: conference-paper
     title: "General E(2)-Equivariant Steerable CNNs"
     authors:
-      - family-names: Weiler
-        given-names: Maurice
-      - family-names: Cesa
-        given-names: Gabriele
+      - family-names: "Weiler"
+        given-names: "Maurice"
+      - family-names: "Cesa"
+        given-names: "Gabriele"
     year: 2019
-    doi: 10.48550/arXiv.1911.08251
+    collection-title: "Advances in Neural Information Processing Systems 32"
+    doi: "10.48550/arXiv.1911.08251"
+  - type: article
+    title: "Offline Signature Verification and Identification Using Distance Statistics"
+    authors:
+      - family-names: "Kalera"
+        given-names: "Meenakshi K."
+      - family-names: "Srihari"
+        given-names: "Sargur N."
+      - family-names: "Xu"
+        given-names: "Aihua"
+    year: 2004
+    journal: "International Journal of Pattern Recognition and Artificial Intelligence"
+    doi: "10.1142/S0218001404003630"
+  - type: conference-paper
+    title: "Performance of an Off-Line Signature Verification Method Based on Texture Features on a Large Indic-Script Signature Dataset"
+    authors:
+      - family-names: "Pal"
+        given-names: "Srikanta"
+      - family-names: "Alaei"
+        given-names: "Alireza"
+      - family-names: "Pal"
+        given-names: "Umapada"
+      - family-names: "Blumenstein"
+        given-names: "Michael"
+    year: 2016
+    collection-title: "12th IAPR Workshop on Document Analysis Systems"
+    doi: "10.1109/DAS.2016.48"
