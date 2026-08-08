@@ -14,7 +14,7 @@ def test_local_release_checkpoint_checksum_and_metadata():
     if not path_value:
         pytest.skip("set SIGORBIT_TEST_CHECKPOINT to the approved/local artifact")
     path = Path(path_value)
-    assert file_sha256(path) == "ff62889e2c5172762e894f4ee05162e0109d06c863b1fa83a7bcc6baf1dc0963"
+    assert file_sha256(path) == "ec8d99f887f5a2658d93b14a14911b29a1411e9cf142efa85862a47b30cd233e"
     package = torch.load(path, map_location="cpu", weights_only=True)
     assert package["format_version"] == 1
     assert package["metadata"]["model_id"] == "sigorbit-c8-257-v1"

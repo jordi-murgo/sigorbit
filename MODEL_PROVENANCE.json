@@ -6,7 +6,7 @@
   "artifact": {
     "path": "local-only: sigorbit-c8-257-v1.pt (excluded from Git/builds)",
     "bytes": 17738933,
-    "sha256": "ff62889e2c5172762e894f4ee05162e0109d06c863b1fa83a7bcc6baf1dc0963",
+    "sha256": "ec8d99f887f5a2658d93b14a14911b29a1411e9cf142efa85862a47b30cd233e",
     "loader": "torch.load(weights_only=True)",
     "public_license_status": "withheld_pending_CEDAR_and_BHSig260_permission",
     "tracked_or_distributed": false
@@ -78,7 +78,14 @@
       }
     ],
     "audit_report": "docs/DATASET_LICENSE_AUDIT.md",
-    "release_decision": "do_not_publish_checkpoint_without_permission_or_counsel_approval"
+    "release_decision": "do_not_publish_checkpoint_without_permission_or_counsel_approval",
+    "local_materialized_fingerprints": {
+      "train": "b605607039e924e8",
+      "validation": "3453e783289950ed",
+      "test": "58f6ea1b5d6ba4a2"
+    },
+    "checkpoint_binding_evidence": "strong operational evidence; historical command/revision not embedded in checkpoint or cloud log",
+    "test_reuse": "used for A/B and threshold calibration; not pristine for future claims"
   },
   "parity": {
     "max_absolute_difference": 0.0,

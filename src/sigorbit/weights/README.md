@@ -6,7 +6,7 @@ training-only ArcFace/head state. The resulting embeddings are bit-identical to
 the selected 257px training checkpoint.
 
 - size: 17,738,933 bytes
-- SHA-256: `ff62889e2c5172762e894f4ee05162e0109d06c863b1fa83a7bcc6baf1dc0963`
+- SHA-256: `ec8d99f887f5a2658d93b14a14911b29a1411e9cf142efa85862a47b30cd233e`
 - semantic model ID: `sigorbit-c8-257-v1`
 
 The checkpoint is intentionally absent from this directory and from public

@@ -123,7 +123,7 @@ threshold. Thresholds are catalogue-, domain- and reference-count-specific.
 
 ## Measured behavior
 
-On the untouched 33-signer/792-image **BHSig260 Bengali** test split, the
+On the held-out 33-signer/792-image **BHSig260 Bengali** test split, the
 257px checkpoint achieved:
 
 - clean leave-one-out top-1: **100.0% (792/792)**;

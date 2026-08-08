@@ -15,7 +15,7 @@ retrieval or a separately calibrated decision system.
 | Reflections | deliberately not invariant |
 | Semantic model ID | `sigorbit-c8-257-v1` |
 | Preprocess ID | `sigorbit-gray-square-257-v1` |
-| Slim artifact SHA-256 | `ff62889e2c5172762e894f4ee05162e0109d06c863b1fa83a7bcc6baf1dc0963` |
+| Slim artifact SHA-256 | `ec8d99f887f5a2658d93b14a14911b29a1411e9cf142efa85862a47b30cd233e` |
 | Public weight release | withheld pending CEDAR/BHSig260 permission |
 | Original training artifact SHA-256 | `39384c2d7211bb1815b7cd8f65ba15aca26b83b89b8206205eadd9b416954399` |
 
@@ -51,7 +51,7 @@ permission or counsel approval is recorded. See `DATASET_LICENSE_AUDIT.md`.
 
 ## Evaluation protocol
 
-The untouched test split contained 792 images from 33 BHSig260 Bengali
+The held-out test split contained 792 images from 33 BHSig260 Bengali
 signers. It is identity-disjoint but not language-balanced: the validation and
 test splits are Bengali-only because identities were split contiguously. Clean
 evaluation used leave-one-out matching. Rotation sweeps used the first three

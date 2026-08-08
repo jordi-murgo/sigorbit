@@ -41,7 +41,7 @@ def main() -> None:
             "weights_release_status": "withheld_pending_upstream_permission",
             "training_dataset": "rakshitdabral/Signature-Verification-Dataset",
             "training_dataset_card_declared_license": "MIT",
-            "upstream_dataset_license_status": "no_explicit_licence_found",
+            "upstream_dataset_license_status": "CEDAR_unlicensed_BHSig260_research_only",
             "source_checkpoint_sha256": sha256(args.source),
             "selected_epoch_zero_based": int(source.get("epoch", -1)),
             "validation_top1": float(source.get("val_top1", float("nan"))),

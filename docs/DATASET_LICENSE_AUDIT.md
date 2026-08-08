@@ -50,7 +50,21 @@ weight release an avoidable risk.
 
 The canonicalized lineage does **not** inherit HairyPotato/EfficientNet weights
 and does not use YOLO or detector datasets. Private Jordi signatures were not
-used to update weights.
+used to update weights. The 768-image validation split affected checkpoint
+selection, and the 792-image test split was later used for A/B evaluation and
+threshold calibration; neither supplied gradients, but the test split is no
+longer untouched for future claims.
+
+### Reproducibility evidence limit
+
+The final checkpoint and cloud log did not embed/archive the historical command
+or dataset revision. The strongest local evidence is the materialized dataset,
+its Hugging Face cache metadata, the exact 6,000/768 counts in the training log,
+and the recorded cloud workflow that uploaded that local dataset after an HF 429.
+All point to revision `485e3b6f95ef93a9994b93459933770f69a2e554`; this is strong operational
+evidence, not a cryptographic binding between dataset bytes and checkpoint.
+Local split fingerprints are train `b605607039e924e8`, validation
+`3453e783289950ed`, and test `58f6ea1b5d6ba4a2`.
 
 ### Exact language/source composition
 
