@@ -60,10 +60,15 @@ Python 3.10+ is supported. Install the correct PyTorch build for your CPU, CUDA
 or ROCm platform first, then install SigOrbit:
 
 ```bash
-# from a clone
-python -m venv .venv
-. .venv/bin/activate
-python -m pip install -e '.[api]'
+python -m pip install sigorbit
+# Optional FastAPI example:
+python -m pip install "sigorbit[api]"
+```
+
+For an unreleased commit, installation directly from GitHub is also supported:
+
+```bash
+python -m pip install "sigorbit @ git+https://github.com/jordi-murgo/SigOrbit.git@main"
 ```
 
 For NVIDIA/ROCm, follow the official PyTorch selector rather than relying on the

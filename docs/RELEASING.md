@@ -43,6 +43,20 @@ Until these boxes are approved, the release decision is **code-only**. Treat
 the local checkpoint as a pre-release engineering artifact, not a public
 redistribution grant; exclude it from any public remote, wheel, sdist or release.
 
+## PyPI publishing
+
+Trusted Publisher coordinates:
+
+- project: `sigorbit`;
+- owner/repository: `jordi-murgo/SigOrbit`;
+- workflow: `.github/workflows/publish.yml`;
+- GitHub environment: `pypi`.
+
+Publishing is triggered only by a GitHub release. The workflow verifies that the
+`vX.Y.Z` tag equals `pyproject.toml`, rebuilds in isolation, rejects model/data
+artifacts, runs `twine check`, and publishes via OIDC without a long-lived PyPI
+token.
+
 ## Technical gates
 
 - [x] `ruff check .` and non-integration tests pass on Python 3.10–3.13;
