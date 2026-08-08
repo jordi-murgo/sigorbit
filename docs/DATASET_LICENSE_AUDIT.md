@@ -216,6 +216,8 @@ biometric data used for unique identification:
 
 ## Required release actions
 
+A reusable request is provided in `PERMISSION_REQUEST_TEMPLATE.md`.
+
 ### Ask CEDAR / University at Buffalo
 
 Request written confirmation that permits:

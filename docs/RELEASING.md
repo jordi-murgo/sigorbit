@@ -28,7 +28,9 @@ but explicitly defers to upstream terms; that tag is not a demonstrated right to
 relicense the images. Before publishing weights:
 
 - [x] pin the exact Hub revision and card (`485e3b6f95ef93a9994b93459933770f69a2e554`);
-- [ ] obtain/review written CEDAR and BHSig260 permission for training, commercial use and public derived-weight redistribution;
+- [ ] obtain/review written CEDAR and BHSig260 permission for training,
+      commercial use and public derived-weight redistribution using
+      `PERMISSION_REQUEST_TEMPLATE.md`;
 - [ ] document provenance and consent for every included language/corpus;
 - [ ] decide and record the weight license in a dedicated file;
 - [ ] approve biometric/privacy and model-inversion risk;
