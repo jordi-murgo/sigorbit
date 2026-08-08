@@ -23,9 +23,9 @@ classifiers = [
 ]
 
 dependencies = [
-  "torch>=2.2",
+  "torch>=2.7",
   "numpy>=1.26",
-  "pillow>=10",
+  "pillow>=12.3",
   "e2cnn>=0.2.3,<0.3",
   "scipy>=1.10",
 ]
@@ -39,9 +39,9 @@ Changelog = "https://github.com/jordi-murgo/SigOrbit/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 api = [
-  "fastapi>=0.110",
-  "uvicorn[standard]>=0.29",
-  "python-multipart>=0.0.9",
+  "fastapi>=0.141.1",
+  "uvicorn[standard]>=0.52.1",
+  "python-multipart>=0.0.32",
 ]
 dev = [
   "build>=1.2",
@@ -51,13 +51,13 @@ dev = [
 ]
 
 [project.scripts]
-sigorbit-api = "sigorbit.api:run"
+sigorbit-api = "sigorbit.cli:run"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/sigorbit"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/sigorbit", "tests", "docs", "scripts", "README.md", "LICENSE", "NOTICE", "MODEL_PROVENANCE.json", "CITATION.cff", "CITATION.bib", "CHANGELOG.md"]
+include = ["src/sigorbit", "tests", "docs", "scripts", "README.md", "LICENSE", "NOTICE", "SECURITY.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "MODEL_PROVENANCE.json", "CITATION.cff", "CITATION.bib", "CHANGELOG.md"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

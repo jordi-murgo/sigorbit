@@ -1,3 +1,5 @@
+import io
+
 import numpy as np
 import pytest
 from PIL import Image
@@ -29,3 +31,22 @@ def test_float_array_requires_unit_range():
     assert open_image(np.zeros((4, 4), dtype=np.float32)).mode == "L"
     with pytest.raises(ValueError, match="must be in"):
         open_image(np.full((4, 4), 2.0, dtype=np.float32))
+
+
+def test_pixel_limit_is_checked_before_full_decode():
+    stream = io.BytesIO()
+    Image.new("L", (11, 10), "white").save(stream, format="PNG")
+    with pytest.raises(ValueError, match="pixel safety limit"):
+        open_image(stream.getvalue(), max_pixels=100)
+
+
+def test_encoded_formats_are_allowlisted():
+    stream = io.BytesIO()
+    Image.new("L", (4, 4), "white").save(stream, format="TIFF")
+    with pytest.raises(OSError):
+        open_image(stream.getvalue())
+
+
+def test_invalid_array_dimensions_are_rejected():
+    with pytest.raises(ValueError, match="two or three dimensions"):
+        open_image(np.zeros((4,), dtype=np.uint8))

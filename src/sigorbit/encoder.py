@@ -14,7 +14,7 @@ import torch
 
 from .checkpoint import CheckpointInfo, load_model
 from .model import CanonicalizedEncoder
-from .preprocessing import ImageInput, image_to_tensor
+from .preprocessing import DEFAULT_MAX_IMAGE_PIXELS, ImageInput, image_to_tensor
 
 
 @dataclass(frozen=True)
@@ -47,9 +47,20 @@ class SignatureEncoder:
         checkpoint: str | Path | None = None,
         *,
         device: str | torch.device = "auto",
+        expected_checkpoint_sha256: str | None = None,
+        max_image_pixels: int = DEFAULT_MAX_IMAGE_PIXELS,
+        strict_release_config: bool = True,
     ):
+        if max_image_pixels < 1:
+            raise ValueError("max_image_pixels must be positive")
         self.device = resolve_device(device)
-        model, info = load_model(checkpoint, device=self.device)
+        self.max_image_pixels = max_image_pixels
+        model, info = load_model(
+            checkpoint,
+            device=self.device,
+            expected_sha256=expected_checkpoint_sha256,
+            strict_release_config=strict_release_config,
+        )
         self.model: CanonicalizedEncoder = model
         self.info: CheckpointInfo = info
         self._lock = threading.Lock()
@@ -82,12 +93,16 @@ class SignatureEncoder:
 
     def embed(self, image: ImageInput) -> np.ndarray:
         """Generate one 256-dimensional L2-normalized embedding."""
-        tensor = image_to_tensor(image, self.input_size).unsqueeze(0)
+        tensor = image_to_tensor(
+            image, self.input_size, max_pixels=self.max_image_pixels
+        ).unsqueeze(0)
         embeddings, _ = self._forward(tensor)
         return embeddings[0]
 
     def embed_with_details(self, image: ImageInput) -> EmbeddingResult:
-        tensor = image_to_tensor(image, self.input_size).unsqueeze(0)
+        tensor = image_to_tensor(
+            image, self.input_size, max_pixels=self.max_image_pixels
+        ).unsqueeze(0)
         embeddings, cos_sin = self._forward(tensor)
         angle = math.degrees(math.atan2(float(cos_sin[0, 1]), float(cos_sin[0, 0])))
         return EmbeddingResult(embeddings[0], angle)
@@ -101,7 +116,7 @@ class SignatureEncoder:
         chunks: list[np.ndarray] = []
         for start in range(0, len(images), batch_size):
             tensors = [
-                image_to_tensor(image, self.input_size)
+                image_to_tensor(image, self.input_size, max_pixels=self.max_image_pixels)
                 for image in images[start : start + batch_size]
             ]
             embeddings, _ = self._forward(torch.stack(tensors))

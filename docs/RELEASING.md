@@ -45,11 +45,13 @@ redistribution grant; exclude it from any public remote, wheel, sdist or release
 
 ## Technical gates
 
-- [ ] `ruff check .` and `pytest` pass in a clean environment;
-- [ ] build wheel and sdist, install wheel into a clean environment;
-- [ ] scan archive contents and secrets;
-- [ ] verify bundled/checkpoint SHA-256 against the model card;
-- [ ] verify slim-versus-source embedding parity;
-- [ ] CPU smoke and at least one supported NVIDIA GPU smoke;
-- [ ] FastAPI `/health`, valid `/embed`, corrupt upload and oversize tests;
+- [x] `ruff check .` and non-integration tests pass on Python 3.10–3.13;
+- [x] build wheel and sdist, inspect them and smoke the installed wheel;
+- [x] scan the worktree/history/artifacts for credential patterns; detected
+      high-entropy values were documented SHA-256 hashes/fingerprints only;
+- [x] verify local checkpoint SHA-256 against the model card;
+- [x] verify slim-versus-source embedding parity;
+- [ ] complete the pending supported NVIDIA GPU smoke (CPU smoke passed);
+- [x] test FastAPI health/embed/auth, malformed/traversal/oversize/chunked inputs;
+- [x] run the source security review, Bandit and frozen-lock pip-audit;
 - [ ] tag a signed release and publish checksums.

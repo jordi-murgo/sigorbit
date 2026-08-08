@@ -27,7 +27,7 @@ def test_tiny_model_returns_unit_embeddings():
 
 
 def test_public_encoder_single_batch_and_metadata(tiny_checkpoint):
-    encoder = SignatureEncoder(tiny_checkpoint, device="cpu")
+    encoder = SignatureEncoder(tiny_checkpoint, device="cpu", strict_release_config=False)
     image = np.full((25, 40), 255, dtype=np.uint8)
     first = encoder.embed(image)
     second = encoder.embed(image)

@@ -12,6 +12,8 @@ Semantic Versioning.
 - safe slim-checkpoint loader and versioned preprocessing;
 - single and batched embedding API;
 - minimal FastAPI `/health` and `/embed` example;
+- bounded request/file/image decoding, optional bearer auth, inference backpressure,
+  generic errors and pre-load checkpoint hash verification;
 - slim-checkpoint tooling, model card, provenance manifest and release gate;
 - dataset licence audit; checkpoint excluded from Git and distributions pending permission;
 - unit/API tests, formatting checks and GitHub Actions workflow.

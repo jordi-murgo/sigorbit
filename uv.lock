@@ -1445,16 +1445,16 @@ dev = [
 requires-dist = [
     { name = "build", marker = "extra == 'dev'", specifier = ">=1.2" },
     { name = "e2cnn", specifier = ">=0.2.3,<0.3" },
-    { name = "fastapi", marker = "extra == 'api'", specifier = ">=0.110" },
+    { name = "fastapi", marker = "extra == 'api'", specifier = ">=0.141.1" },
     { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.27" },
     { name = "numpy", specifier = ">=1.26" },
-    { name = "pillow", specifier = ">=10" },
+    { name = "pillow", specifier = ">=12.3" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
-    { name = "python-multipart", marker = "extra == 'api'", specifier = ">=0.0.9" },
+    { name = "python-multipart", marker = "extra == 'api'", specifier = ">=0.0.32" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8" },
     { name = "scipy", specifier = ">=1.10" },
-    { name = "torch", specifier = ">=2.2" },
-    { name = "uvicorn", extras = ["standard"], marker = "extra == 'api'", specifier = ">=0.29" },
+    { name = "torch", specifier = ">=2.7" },
+    { name = "uvicorn", extras = ["standard"], marker = "extra == 'api'", specifier = ">=0.52.1" },
 ]
 provides-extras = ["api", "dev"]
 

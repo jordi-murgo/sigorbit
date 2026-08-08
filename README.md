@@ -102,15 +102,19 @@ by different `model_id` or `preprocess_version` values.**
 
 ```bash
 pip install -e '.[api]'
-SIGORBIT_CHECKPOINT=/secure/path/sigorbit-c8-257-v1.pt \
+export SIGORBIT_CHECKPOINT=/secure/path/sigorbit-c8-257-v1.pt
+export SIGORBIT_CHECKPOINT_SHA256=ec8d99f887f5a2658d93b14a14911b29a1411e9cf142efa85862a47b30cd233e
+export SIGORBIT_API_KEY=replace-with-a-secret-from-your-secret-manager
 SIGORBIT_DEVICE=auto sigorbit-api
 ```
 
-Then:
+Then, from an authorized client:
 
 ```bash
 curl http://127.0.0.1:8000/health
-curl -X POST http://127.0.0.1:8000/embed   -F 'file=@signature.png'
+curl -X POST http://127.0.0.1:8000/embed \
+  -H "Authorization: Bearer $SIGORBIT_API_KEY" \
+  -F 'file=@signature.png'
 ```
 
 The response includes the model/preprocess identity, predicted canonicalization
@@ -121,10 +125,31 @@ Configuration:
 | Variable | Default | Meaning |
 |---|---|---|
 | `SIGORBIT_CHECKPOINT` | required in code-only release | Local approved checkpoint path |
+| `SIGORBIT_CHECKPOINT_SHA256` | required by HTTP API | Expected approved artifact digest |
 | `SIGORBIT_DEVICE` | `auto` | `cpu`, `cuda`, `cuda:0`, etc. |
+| `SIGORBIT_API_KEY` | unset on loopback | Bearer token; required by CLI for non-loopback binding |
 | `SIGORBIT_HOST` | `127.0.0.1` | Bind address |
 | `SIGORBIT_PORT` | `8000` | Bind port |
-| `SIGORBIT_MAX_UPLOAD_BYTES` | `10485760` | Upload limit |
+| `SIGORBIT_MAX_UPLOAD_BYTES` | `10485760` | Encoded upload-file byte limit |
+| `SIGORBIT_MAX_REQUEST_BYTES` | upload limit + 65536 | Pre-multipart request-body limit |
+| `SIGORBIT_MAX_IMAGE_PIXELS` | `4194304` | Decompression-bomb pixel limit |
+| `SIGORBIT_MAX_CONCURRENT_REQUESTS` | `1` | Full concurrent `/embed` request capacity |
+| `SIGORBIT_QUEUE_TIMEOUT_SECONDS` | `1.0` | Wait before returning HTTP 503 |
+
+Uploaded filenames are ignored: the API passes bytes to the decoder and never
+constructs or writes a filesystem path from client input. Encoded inputs are
+restricted to PNG, JPEG and WebP. The in-process Python API deliberately accepts
+trusted `str`/`Path` inputs, so applications must not forward a remote filename
+to `SignatureEncoder.embed()`.
+
+See the [security review](docs/SECURITY_REVIEW.md) for the threat model,
+adversarial tests and residual risks.
+
+The server binds to loopback by default. Before binding to a non-loopback
+address, configure bearer authentication and place it behind a TLS reverse proxy
+with request/time/rate limits. The built-in limits reduce accidental and simple
+resource exhaustion; they are not a replacement for an edge proxy or process
+isolation.
 
 The example intentionally has no signer database and no hard-coded MATCH
 threshold. Thresholds are catalogue-, domain- and reference-count-specific.
