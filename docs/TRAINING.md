@@ -48,6 +48,9 @@ ramped to 0.35. The joint stage uses separate learning rates: `3e-4` for the
 backbone and `1e-3` for both canonicalizer and ArcFace head. The 80-epoch
 schedule uses `joint.min_epochs = 50` and `patience = 16` to preserve the full
 cosine decay while avoiding wasted epochs after the best checkpoint stabilizes.
+Both validated runs use `run.seed = 31337`. The seed controls weight
+initialization, sampler order, augmentation sampling and synthetic angle
+generation; the dataset split has a separate `[data.split] seed`.
 
 Training tensors and parameters remain FP32. The validated NVIDIA configuration
 enables TF32 matrix/convolution kernels for speed and sets
