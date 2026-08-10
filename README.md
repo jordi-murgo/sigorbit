@@ -4,8 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Rotation-robust handwritten-signature embeddings with continuous SO(2)
-canonicalization and a C8-steerable backbone.**
-
+canonicalization and steerable C4/C8 backbones.**
 Created and maintained by **Jordi Murgó**
 ([GitHub](https://github.com/jordi-murgo) ·
 [jordi.murgo@gmail.com](mailto:jordi.murgo@gmail.com) ·
@@ -84,8 +83,7 @@ flowchart TB
 - 257×257 grayscale input
 - 256-dimensional float32 output
 - continuous SO(2) rotation canonicalization; no scale or reflection canonicalization
-- C8 regular representations and invariant group pooling
-- slim-checkpoint tooling: 16.9 MiB locally; checkpoint intentionally excluded from public source builds pending permission
+- C4 or C8 regular representations and invariant group pooling
 
 See [the architecture notes](docs/ARCHITECTURE.md) and
 [model card](docs/MODEL_CARD.md).
@@ -106,10 +104,11 @@ Its current from-scratch protocol has three stages:
 The ArcFace head exists only during training and is not part of an exported
 encoder. The published package still identifies the historically selected
 checkpoint as `sigorbit-c8-257-v1`; that checkpoint used an older C8 initializer
-whose complete resume history was not archived. The auditable trainer therefore
-produces the distinct `sigorbit-c8-257-retrained-v1` model ID and does not claim a
-byte-for-byte reproduction. See [training and reproducibility](docs/TRAINING.md)
-for both lineages.
+whose complete resume history was not archived. The auditable trainer produces
+two from-scratch model IDs: `sigorbit-c8-257-retrained-v1` (C8, batch 32) and
+`sigorbit-c4-257-b64` (C4, batch 64). Neither claims a byte-for-byte
+reproduction of the deployed model. See [training and reproducibility](docs/TRAINING.md)
+for all lineages.
 
 ## Install
 

@@ -7,17 +7,19 @@ source is published on GitHub as an alpha; it is not distributed on PyPI.
 
 The distinction matters because there are two model lineages:
 
-- `sigorbit-c8-257-v1` is the historically selected deployment checkpoint
-  described by the model card;
-- `sigorbit-c8-257-retrained-v1` is the auditable, from-scratch candidate produced
-  by the current trainer. It is a separate model ID and has not replaced the
-  historical checkpoint.
+- `sigorbit-c8-257-retrained-v1` is the auditable, from-scratch C8 candidate
+  produced by the current trainer;
+- `sigorbit-c4-257-b64` is the auditable, from-scratch C4 variant that achieves
+  comparable margin at 2.7× training speed. It is a separate model ID and has
+  not replaced the historical checkpoint.
 
 ## Current three-stage protocol
 
-The validated `c8-257-final` run uses one 257 px architecture throughout:
-C8 widths `24,48,96,128`, 256-D embeddings and PK batches with 8 signers × 4
-samples. All learned weights start randomly; no external initializer is loaded.
+The validated runs use one 257 px architecture throughout: C8 or C4 widths
+`24,48,96,128`, 256-D embeddings and PK batches. The c8-257-final run uses
+8 signers × 4 samples (batch 32); the c4-257-b64 run uses 16 signers × 4
+samples (batch 64). All learned weights start randomly; no external
+initializer is loaded.
 
 | Stage | Optimized parameters | Objective and augmentation | Schedule |
 |---|---|---|---|
@@ -43,9 +45,9 @@ L_consist = 1 - cosine(e(x), e(Rαx))
 
 The ArcFace scale is 16 and its angular margin is held at zero initially, then
 ramped to 0.35. The joint stage uses separate learning rates: `3e-4` for the
-backbone and `1e-3` for both canonicalizer and ArcFace head. The 80-epoch run
-deliberately disables practical early stopping so the increasing rotation
-difficulty and full cosine decay complete before checkpoint selection.
+backbone and `1e-3` for both canonicalizer and ArcFace head. The 80-epoch
+schedule uses `joint.min_epochs = 50` and `patience = 16` to preserve the full
+cosine decay while avoiding wasted epochs after the best checkpoint stabilizes.
 
 Training tensors and parameters remain FP32. The validated NVIDIA configuration
 enables TF32 matrix/convolution kernels for speed and sets
@@ -104,10 +106,11 @@ deployable exports contain only the runtime model and non-executable metadata.
 
 See the trainer's
 [`TRAINING_RECIPE.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/TRAINING_RECIPE.md),
-[`REPRODUCIBILITY.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/REPRODUCIBILITY.md)
-and
+[`REPRODUCIBILITY.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/REPRODUCIBILITY.md),
 [`RESULTS_c8-257-final.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/RESULTS_c8-257-final.md)
-for the exact configuration and observed result.
+and
+[`RESULTS_c4-257-b64.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/RESULTS_c4-257-b64.md)
+for the exact configurations and observed results.
 
 ## Dataset composition and rights
 
