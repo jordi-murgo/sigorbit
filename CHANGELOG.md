@@ -8,7 +8,6 @@ Semantic Versioning.
 ### Added
 
 - MIT-licensed `sigorbit` Python package;
-- SO(2) canonicalizer and C8-steerable signature encoder;
 - safe slim-checkpoint loader and versioned preprocessing;
 - single and batched embedding API;
 - minimal FastAPI `/health` and `/embed` example;
@@ -16,4 +15,13 @@ Semantic Versioning.
   generic errors and pre-load checkpoint hash verification;
 - slim-checkpoint tooling, model card, provenance manifest and release gate;
 - dataset licence audit; checkpoint excluded from Git and distributions pending permission;
-- unit/API tests, formatting checks and GitHub Actions workflow.
+
+## [Unreleased]
+
+### Changed
+
+- Architecture and documentation now describe C4 and C8 backbones;
+  `group_order` parameter selects the cyclic group (4 or 8).
+- C4 backbone: 2.2 M parameters, 2.7× faster training, comparable margin.
+- C8 backbone: 4.3 M parameters, finer 45° equivariance.
+- TRAINING.md, ARCHITECTURE.md and MODEL_CARD.md updated for both variants.
