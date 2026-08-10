@@ -23,9 +23,9 @@ initializer is loaded.
 
 | Stage | Optimized parameters | Objective and augmentation | Schedule |
 |---|---|---|---|
-| **1. Backbone** | C8 encoder + train-only ArcFace head | signer classification; framing/color/affine jitter and one-sided expanded PIL rotations at 0°, 15°, 30°, 45°, 60° or 75° | 40 epochs, AdamW, 2-epoch LR warmup then cosine |
+| **1. Backbone** | C_N encoder + train-only ArcFace head | signer classification; framing/color/affine jitter and one-sided expanded PIL rotations (C8: 0°, 15°, 30°, 45°, 60°, 75°; C4: 0°, 90°) | 40 epochs, AdamW, 2-epoch LR warmup then cosine |
 | **2. Pose** | SO(2) canonicalizer only | circular supervision for clean images and known randomly rotated copies; rotation envelope grows from ±45° to ±180° | 10 epochs, LR `3e-3` |
-| **3. Joint** | canonicalizer + C8 encoder + ArcFace head | identity on clean and rotated views, circular pose loss and cosine embedding consistency; envelope grows from ±10° to ±180° over 20 epoch indices | 80 epochs, 5-epoch LR warmup then cosine |
+| **3. Joint** | canonicalizer + C_N encoder + ArcFace head | identity on clean and rotated views, circular pose loss and cosine embedding consistency; envelope grows from ±10° to ±180° over 20 epoch indices | 80 epochs, 5-epoch LR warmup then cosine |
 
 Stage 2 starts from the best validation checkpoint of stage 1, not the last
 backbone epoch. Stage 3 starts from that backbone and the final pose-pretraining
@@ -73,7 +73,7 @@ The staged protocol removes that ambiguity:
    complete rotation orbit without giving up signer separation.
 
 The model used at inference is still a single serial graph:
-canonicalizer → resampler → C8 backbone → normalized embedding. The stages add
+canonicalizer → resampler → C_N backbone → normalized embedding. The stages add
 no inference-time branches. The ArcFace classifier is discarded after training.
 
 ## Historical deployed checkpoint

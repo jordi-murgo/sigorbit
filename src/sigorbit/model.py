@@ -172,7 +172,7 @@ class OrientationCanonicalizer(nn.Module):
 
 
 class CanonicalizedEncoder(nn.Module):
-    """Continuous SO(2) canonicalizer followed by a C8 steerable encoder."""
+    """Continuous SO(2) canonicalizer followed by a C_N steerable encoder."""
 
     def __init__(self, config: ModelConfig | None = None):
         super().__init__()
