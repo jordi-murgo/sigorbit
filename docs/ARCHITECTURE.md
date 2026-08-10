@@ -30,22 +30,26 @@ at the identity transformation.
 
 Angle supervision is a training concern rather than an extra inference path.
 At runtime the predicted pose always feeds the resampler, and the canonicalized
-image always feeds the C8 backbone.
+image always feeds the steerable backbone.
 
-## 3. C8 steerable backbone
+## 3. Steerable backbone (C_N, N = group_order)
 
-The backbone uses `e2cnn` convolutions over the cyclic rotation group C8:
+The backbone uses `e2cnn` convolutions over the cyclic rotation group C_N,
+where N is the configured `group_order` (4 or 8):
 
 - stem: 7×7 R2Conv, inner BatchNorm, equivariant ReLU, antialiased /2 pooling;
 - three stages: two 5×5 R2Conv blocks and antialiased /2 pooling;
 - widths: 24, 48, 96 and 128 regular-representation fields;
-- `GroupPooling` removes the C8 fiber;
+- `GroupPooling` removes the C_N fiber;
 - spatial average pooling and an MLP produce 256 values;
 - L2 normalization produces the final descriptor.
 
-C8 is not asked to approximate every input angle on its own. The continuous
-canonicalizer removes most pose first; C8 then supplies a strong, data-efficient
-rotation-aware feature extractor.
+C_N is not asked to approximate every input angle on its own. The continuous
+canonicalizer removes most pose first; the steerable backbone then supplies a
+strong, data-efficient rotation-aware feature extractor. C4 (90° symmetry) is
+sufficient for signatures because the canonicalizer handles continuous rotation;
+C8 (45° symmetry) provides finer equivariance at twice the parameter count and
+training cost.
 
 ## 4. Training boundary
 
@@ -55,7 +59,7 @@ implementation, not a trainer copy.
 
 Optimization is split into three stages:
 
-1. the C8 backbone starts from random weights and learns signer identity with a
+1. the backbone starts from random weights and learns signer identity with a
    temporary ArcFace classification head;
 2. the best backbone and ArcFace state are restored, the backbone is frozen, and
    only the canonicalizer learns known synthetic rotation angles;
@@ -70,8 +74,8 @@ do not add branches or modes to the inference graph.
 ## 5. Why reflections are excluded
 
 A mirrored signature can change stroke order and identity evidence. The model
-uses SO(2)/C8 rotations rather than O(2)/D8 transformations, so it does not make
-reflections equivalent by construction.
+uses SO(2)/C_N rotations rather than O(2)/D_N transformations, so it does not
+make reflections equivalent by construction.
 
 ## 6. Artifact format
 
@@ -90,11 +94,15 @@ are rejected.
 
 ## 7. Parameter and compute profile
 
-- total parameters: 4,276,354;
-- backbone: 4,244,256;
-- canonicalizer: 32,098;
-- FP32 parameter storage: about 17.1 MB;
-- output: 256 float32 values.
+| | C4 | C8 |
+|---|---:|---:|
+| total parameters | 2,254,466 | 4,276,354 |
+| backbone | 2,222,368 | 4,244,256 |
+| canonicalizer | 32,098 | 32,098 |
+| FP32 storage | ~9 MiB | ~17 MiB |
+
+Output: 256 float32 values. The canonicalizer is identical for both group orders;
+only the backbone's equivariant filter count scales with N.
 
 Input resolution changes activation memory and latency, not parameter count.
 For high-throughput deployment, replicate a complete model per GPU process and

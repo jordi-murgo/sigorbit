@@ -52,8 +52,10 @@ The canonicalized stages used:
 
 The companion `sigorbit-trainer` now implements an auditable from-scratch
 three-stage protocol and emits the distinct
-`sigorbit-c8-257-retrained-v1` model ID. Its checkpoints and measurements are not
-the source of this card's metrics.
+`sigorbit-c8-257-retrained-v1` model ID. A C4 variant (`sigorbit-c4-257-b64`)
+trains 2.7× faster with comparable margin. Both are auditable from-scratch
+candidates; neither has replaced the historical checkpoint. Their checkpoints
+and measurements are not the source of this card's metrics.
 
 A decoded-pixel audit proved that the aggregate contains every genuine image
 from CEDAR (55×24) and BHSig260 (260×24), with no forgeries. The 6,000-image
