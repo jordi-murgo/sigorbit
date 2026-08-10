@@ -1,9 +1,10 @@
 """Neural network architecture used by SigOrbit.
 
 The model learns a continuous SO(2) pose, resamples the input into that
-canonical pose, and then applies a C8-steerable convolutional encoder. The
-canonicalizer covers arbitrary angles while the C8 backbone supplies a strong
-rotation-aware inductive bias. Reflections are intentionally not included.
+canonical pose, and then applies a C_N-steerable convolutional encoder
+(N = group_order, 4 or 8). The canonicalizer covers arbitrary angles while the
+steerable backbone supplies a strong rotation-aware inductive bias. Reflections
+are intentionally not included.
 """
 
 from __future__ import annotations
