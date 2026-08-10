@@ -30,29 +30,86 @@ checked on 2026-08-07. This is not a trademark opinion.
 
 ## Architecture
 
-```text
-cropped image
-    │ grayscale → 257×257 bicubic → [-1, 1]
-    ▼
-SO(2) canonicalizer
-    │ predicts normalized (cos θ, sin θ)
-    │ affine_grid + bicubic grid_sample; rotation only
-    ▼
-C8 steerable CNN (e2cnn)
-    │ antialiased pooling → group pooling
-    ▼
-256-D L2-normalized embedding
-```
+````mermaid
+flowchart TB
+    subgraph Input["Preprocessing"]
+        IMG["Cropped signature image"]
+        GRAY["Grayscale → 257×257 bicubic → [-1, 1]"]
+        IMG --> GRAY
+    end
+
+    subgraph Canon["OrientationCanonicalizer (SO(2))"]
+        direction TB
+        CC1["Conv2d 1→16 k5 s2 p2<br/>+ ReLU + BatchNorm2d"]
+        CC2["Conv2d 16→32 k5 s2 p2<br/>+ ReLU + BatchNorm2d"]
+        CC3["Conv2d 32→64 k3 s2 p1<br/>+ ReLU + BatchNorm2d"]
+        CCP["AdaptiveAvgPool2d(1) → Flatten"]
+        CLIN["Linear 64→2<br/>→ (cos θ, sin θ), L2-normalized"]
+        CAFF["affine_grid + grid_sample<br/>(bicubic, rotation only)"]
+        CC1 --> CC2 --> CC3 --> CCP --> CLIN --> CAFF
+    end
+
+    subgraph Backbone["SteerableEncoder (C8-steerable CNN, e2cnn)"]
+        direction TB
+        STEM["Stem<br/>R2Conv 1→24·8 regular k7 p3<br/>+ InnerBatchNorm + ReLU<br/>+ BlurPool /2"]
+        L1["Layer 1 (/4)<br/>R2Conv 24→48 k5 p2 + IBN + ReLU<br/>R2Conv 48→48 k5 p2 + IBN + ReLU<br/>+ BlurPool /2"]
+        L2["Layer 2 (/8)<br/>R2Conv 48→96 k5 p2 + IBN + ReLU<br/>R2Conv 96→96 k5 p2 + IBN + ReLU<br/>+ BlurPool /2"]
+        L3["Layer 3 (/16)<br/>R2Conv 96→128 k5 p2 + IBN + ReLU<br/>R2Conv 128→128 k5 p2 + IBN + ReLU<br/>+ BlurPool /2"]
+        GP["GroupPooling<br/>max over C8 fiber<br/>→ 128 invariant channels"]
+        STEM --> L1 --> L2 --> L3 --> GP
+    end
+
+    subgraph Head["Embedding head"]
+        direction TB
+        POOL["AdaptiveAvgPool2d(1)<br/>→ Flatten → 128"]
+        FC1["Linear 128→512<br/>+ BatchNorm1d + ReLU<br/>+ Dropout 0.3"]
+        FC2["Linear 512→256<br/>+ BatchNorm1d"]
+        NORM["L2-normalize"]
+        POOL --> FC1 --> FC2 --> NORM
+    end
+
+    GRAY --> CC1
+    CAFF --> STEM
+    GP --> POOL
+    NORM --> OUT["256-D L2-normalized embedding"]
+
+    style Input fill:#1a2a3c,color:#fff
+    style Canon fill:#1a3a5c,color:#fff
+    style Backbone fill:#2d5a2d,color:#fff
+    style Head fill:#4a3a1c,color:#fff
+    style OUT fill:#5c1a1a,color:#fff
+````
 
 - 4,276,354 trainable parameters
 - 257×257 grayscale input
 - 256-dimensional float32 output
-- continuous rotation canonicalization; no scale or reflection canonicalization
+- continuous SO(2) rotation canonicalization; no scale or reflection canonicalization
 - C8 regular representations and invariant group pooling
 - slim-checkpoint tooling: 16.9 MiB locally; checkpoint intentionally excluded from public source builds pending permission
 
 See [the architecture notes](docs/ARCHITECTURE.md) and
 [model card](docs/MODEL_CARD.md).
+
+## Training and model lineage
+
+The runtime package owns the exact model and preprocessing classes. The companion
+[`sigorbit-trainer`](https://github.com/jordi-murgo/SigOrbit-trainer) package
+imports those classes directly rather than maintaining a second architecture.
+Its current from-scratch protocol has three stages:
+
+1. train the C8 backbone and a temporary ArcFace classifier;
+2. restore the best backbone, freeze it, and pretrain only the SO(2)
+   canonicalizer against known synthetic angles;
+3. jointly fine-tune canonicalizer, backbone and ArcFace head with identity,
+   circular-orientation and embedding-consistency losses.
+
+The ArcFace head exists only during training and is not part of an exported
+encoder. The published package still identifies the historically selected
+checkpoint as `sigorbit-c8-257-v1`; that checkpoint used an older C8 initializer
+whose complete resume history was not archived. The auditable trainer therefore
+produces the distinct `sigorbit-c8-257-retrained-v1` model ID and does not claim a
+byte-for-byte reproduction. See [training and reproducibility](docs/TRAINING.md)
+for both lineages.
 
 ## Install
 

@@ -28,10 +28,9 @@ canonical orientation. The transform has no translation, scale, shear or
 reflection terms. The last layer is initialized to `(1,0)`, so training begins
 at the identity transformation.
 
-Angle-only pretraining is important. Without it, the identity backbone can learn
-to absorb rotation while the canonicalizer remains near zero. The deployed run
-first trained the angle head against known synthetic rotation, then optimized
-identity, circular orientation and cosine-consistency losses jointly.
+Angle supervision is a training concern rather than an extra inference path.
+At runtime the predicted pose always feeds the resampler, and the canonicalized
+image always feeds the C8 backbone.
 
 ## 3. C8 steerable backbone
 
@@ -48,13 +47,33 @@ C8 is not asked to approximate every input angle on its own. The continuous
 canonicalizer removes most pose first; C8 then supplies a strong, data-efficient
 rotation-aware feature extractor.
 
-## 4. Why reflections are excluded
+## 4. Training boundary
+
+The companion `sigorbit-trainer` imports `ModelConfig`, `SteerableEncoder` and
+`CanonicalizedEncoder` from the pinned runtime package. There is one architecture
+implementation, not a trainer copy.
+
+Optimization is split into three stages:
+
+1. the C8 backbone starts from random weights and learns signer identity with a
+   temporary ArcFace classification head;
+2. the best backbone and ArcFace state are restored, the backbone is frozen, and
+   only the canonicalizer learns known synthetic rotation angles;
+3. canonicalizer, backbone and ArcFace head are optimized together on clean and
+   rotated views.
+
+The exported artifact contains the canonicalizer and backbone only. ArcFace
+weights, optimizer state and schedulers belong to recovery checkpoints and are
+not needed for embeddings. The three stages are an optimization strategy; they
+do not add branches or modes to the inference graph.
+
+## 5. Why reflections are excluded
 
 A mirrored signature can change stroke order and identity evidence. The model
 uses SO(2)/C8 rotations rather than O(2)/D8 transformations, so it does not make
 reflections equivalent by construction.
 
-## 5. Artifact format
+## 6. Artifact format
 
 The release artifact contains only:
 
@@ -69,7 +88,7 @@ from trained weights. This shrinks the artifact from 312,385,643 bytes to about
 `torch.load(..., weights_only=True)`; unexpected keys and missing learned keys
 are rejected.
 
-## 6. Parameter and compute profile
+## 7. Parameter and compute profile
 
 - total parameters: 4,276,354;
 - backbone: 4,244,256;

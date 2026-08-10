@@ -24,21 +24,36 @@ parity test (`max_abs_diff=0`, cosine=1 for the test crop).
 
 ## Training
 
-The backbone was trained from random initialization on the dataset published as
-`rakshitdabral/Signature-Verification-Dataset`; the canonicalized run initialized
-from that C8 backbone. It does **not** inherit the historical HairyPotato
-EfficientNet/GPL checkpoint used in unrelated experiments.
+This card describes the historical `sigorbit-c8-257-v1` checkpoint. Its complete
+lineage has three logical stages:
 
-The selected 257px run used:
+1. the C8 backbone was trained from random initialization with PK sampling,
+   discrete rotation augmentation and a train-only ArcFace classifier;
+2. the resulting backbone initialized 10 epochs of angle-only canonicalizer
+   pretraining;
+3. canonicalizer, backbone and ArcFace head were jointly fine-tuned for 40
+   epochs.
 
-- 40 joint epochs after 10 angle-only canonicalizer pretraining epochs;
-- synthetic rotation curriculum from ±10° to ±180° over 20 epochs;
+The stage-1 artifact came from a research run that had been resumed, so its full
+optimizer/scheduler history was not archived. The model does **not** inherit the
+historical HairyPotato EfficientNet/GPL checkpoint used in unrelated
+experiments, but the deployed artifact is not claimed to be byte-for-byte
+reproducible.
+
+The canonicalized stages used:
+
+- a synthetic rotation curriculum from ±10° to ±180° over 20 joint epochs;
 - ArcFace identity loss;
 - direct circular orientation supervision;
 - cosine embedding-consistency loss;
 - no reflected samples;
-- selected checkpoint: zero-based epoch 33;
+- selected checkpoint: zero-based joint epoch 33;
 - validation top-1 100%, median margin +0.31266865.
+
+The companion `sigorbit-trainer` now implements an auditable from-scratch
+three-stage protocol and emits the distinct
+`sigorbit-c8-257-retrained-v1` model ID. Its checkpoints and measurements are not
+the source of this card's metrics.
 
 A decoded-pixel audit proved that the aggregate contains every genuine image
 from CEDAR (55×24) and BHSig260 (260×24), with no forgeries. The 6,000-image
