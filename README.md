@@ -48,13 +48,13 @@ flowchart TB
         CC1 --> CC2 --> CC3 --> CCP --> CLIN --> CAFF
     end
 
-    subgraph Backbone["SteerableEncoder (C8-steerable CNN, e2cnn)"]
+    subgraph Backbone["SteerableEncoder (C4 or C8-steerable CNN, e2cnn)"]
         direction TB
-        STEM["Stem<br/>R2Conv 1→24·8 regular k7 p3<br/>+ InnerBatchNorm + ReLU<br/>+ BlurPool /2"]
+        STEM["Stem<br/>R2Conv 1→24·N regular k7 p3<br/>+ InnerBatchNorm + ReLU<br/>+ BlurPool /2 (N = group_order)"]
         L1["Layer 1 (/4)<br/>R2Conv 24→48 k5 p2 + IBN + ReLU<br/>R2Conv 48→48 k5 p2 + IBN + ReLU<br/>+ BlurPool /2"]
         L2["Layer 2 (/8)<br/>R2Conv 48→96 k5 p2 + IBN + ReLU<br/>R2Conv 96→96 k5 p2 + IBN + ReLU<br/>+ BlurPool /2"]
         L3["Layer 3 (/16)<br/>R2Conv 96→128 k5 p2 + IBN + ReLU<br/>R2Conv 128→128 k5 p2 + IBN + ReLU<br/>+ BlurPool /2"]
-        GP["GroupPooling<br/>max over C8 fiber<br/>→ 128 invariant channels"]
+        GP["GroupPooling<br/>max over C4/C8 fiber<br/>→ 128 invariant channels"]
         STEM --> L1 --> L2 --> L3 --> GP
     end
 
@@ -79,11 +79,13 @@ flowchart TB
     style OUT fill:#5c1a1a,color:#fff
 ````
 
-- 4,276,354 trainable parameters
+- C4: 2,254,466 trainable parameters (2.2 M); C8: 4,276,354 (4.3 M)
 - 257×257 grayscale input
 - 256-dimensional float32 output
 - continuous SO(2) rotation canonicalization; no scale or reflection canonicalization
-- C4 or C8 regular representations and invariant group pooling
+- C4 or C8 regular representations and invariant group pooling; the canonicalizer
+  handles continuous rotation, so C4 equivariance (90° symmetry) is sufficient for
+  signatures and trains 2.7× faster
 
 See [the architecture notes](docs/ARCHITECTURE.md) and
 [model card](docs/MODEL_CARD.md).
@@ -95,7 +97,7 @@ The runtime package owns the exact model and preprocessing classes. The companio
 imports those classes directly rather than maintaining a second architecture.
 Its current from-scratch protocol has three stages:
 
-1. train the C8 backbone and a temporary ArcFace classifier;
+1. train the C4 or C8 backbone and a temporary ArcFace classifier;
 2. restore the best backbone, freeze it, and pretrain only the SO(2)
    canonicalizer against known synthetic angles;
 3. jointly fine-tune canonicalizer, backbone and ArcFace head with identity,
