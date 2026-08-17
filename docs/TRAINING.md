@@ -1,7 +1,7 @@
 # Training and reproducibility
 
 `sigorbit` is the inference package. Training lives in the companion
-[`sigorbit-trainer`](https://github.com/jordi-murgo/SigOrbit-trainer) repository,
+[`sigorbit-trainer`](https://github.com/jordi-murgo/sigorbit-trainer) repository,
 which pins `sigorbit==0.1.0` and imports its model classes directly. The trainer
 source is published on GitHub as an alpha; it is not distributed on PyPI.
 
@@ -91,7 +91,7 @@ an attempted reproduction rather than relabelling it as the deployed model.
 
 ## Running the auditable trainer
 
-From a checkout of `SigOrbit-trainer`:
+From a checkout of `sigorbit-trainer`:
 
 ```bash
 uv sync --extra dev
@@ -108,11 +108,11 @@ Recovery checkpoints include ArcFace, optimizer, scheduler and RNG state;
 deployable exports contain only the runtime model and non-executable metadata.
 
 See the trainer's
-[`TRAINING_RECIPE.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/TRAINING_RECIPE.md),
-[`REPRODUCIBILITY.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/REPRODUCIBILITY.md),
-[`RESULTS_c8-257-final.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/RESULTS_c8-257-final.md)
+[`TRAINING_RECIPE.md`](https://github.com/jordi-murgo/sigorbit-trainer/blob/main/docs/TRAINING_RECIPE.md),
+[`REPRODUCIBILITY.md`](https://github.com/jordi-murgo/sigorbit-trainer/blob/main/docs/REPRODUCIBILITY.md),
+[`RESULTS_c8-257-final.md`](https://github.com/jordi-murgo/sigorbit-trainer/blob/main/docs/RESULTS_c8-257-final.md)
 and
-[`RESULTS_c4-257-b64.md`](https://github.com/jordi-murgo/SigOrbit-trainer/blob/main/docs/RESULTS_c4-257-b64.md)
+[`RESULTS_c4-257-b64.md`](https://github.com/jordi-murgo/sigorbit-trainer/blob/main/docs/RESULTS_c4-257-b64.md)
 for the exact configurations and observed results.
 
 ## Dataset composition and rights

@@ -48,7 +48,7 @@ redistribution grant; exclude it from any public remote, wheel, sdist or release
 Trusted Publisher coordinates:
 
 - project: `sigorbit`;
-- owner/repository: `jordi-murgo/SigOrbit`;
+- owner/repository: `jordi-murgo/sigorbit`;
 - workflow: `.github/workflows/publish.yml`;
 - GitHub environment: `pypi`.
 

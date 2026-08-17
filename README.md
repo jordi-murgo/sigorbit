@@ -1,6 +1,6 @@
 # SigOrbit
 
-[![CI](https://github.com/jordi-murgo/SigOrbit/actions/workflows/ci.yml/badge.svg)](https://github.com/jordi-murgo/SigOrbit/actions/workflows/ci.yml)
+[![CI](https://github.com/jordi-murgo/sigorbit/actions/workflows/ci.yml/badge.svg)](https://github.com/jordi-murgo/sigorbit/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Rotation-robust handwritten-signature embeddings with continuous SO(2)
@@ -93,7 +93,7 @@ See [the architecture notes](docs/ARCHITECTURE.md) and
 ## Training and model lineage
 
 The runtime package owns the exact model and preprocessing classes. The companion
-[`sigorbit-trainer`](https://github.com/jordi-murgo/SigOrbit-trainer) package
+[`sigorbit-trainer`](https://github.com/jordi-murgo/sigorbit-trainer) package
 imports those classes directly rather than maintaining a second architecture.
 Its current from-scratch protocol has three stages:
 
@@ -126,7 +126,7 @@ python -m pip install "sigorbit[api]"
 For an unreleased commit, installation directly from GitHub is also supported:
 
 ```bash
-python -m pip install "sigorbit @ git+https://github.com/jordi-murgo/SigOrbit.git@main"
+python -m pip install "sigorbit @ git+https://github.com/jordi-murgo/sigorbit.git@main"
 ```
 
 For NVIDIA/ROCm, follow the official PyTorch selector rather than relying on the
@@ -272,7 +272,7 @@ or counsel approval is recorded.
 ## License and citation
 
 Source code: [MIT](LICENSE). Third-party notices: [NOTICE](NOTICE).
-Repository: <https://github.com/jordi-murgo/SigOrbit>.
+Repository: <https://github.com/jordi-murgo/sigorbit>.
 
 If SigOrbit is useful in research, cite the software as:
 
@@ -282,7 +282,7 @@ If SigOrbit is useful in research, cite the software as:
   title   = {{SigOrbit}: Rotation-Robust Handwritten-Signature Embeddings},
   year    = {2026},
   version = {0.1.0},
-  url     = {https://github.com/jordi-murgo/SigOrbit},
+  url     = {https://github.com/jordi-murgo/sigorbit},
   license = {MIT}
 }
 ```

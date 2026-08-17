@@ -13,8 +13,8 @@ contact:
 version: 0.1.0
 date-released: 2026-08-07
 license: MIT
-repository-code: "https://github.com/jordi-murgo/SigOrbit"
-url: "https://github.com/jordi-murgo/SigOrbit"
+repository-code: "https://github.com/jordi-murgo/sigorbit"
+url: "https://github.com/jordi-murgo/sigorbit"
 references:
   - type: conference-paper
     title: "General E(2)-Equivariant Steerable CNNs"
