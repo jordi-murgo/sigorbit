@@ -3,6 +3,16 @@
 All notable changes follow [Keep a Changelog](https://keepachangelog.com/) and
 Semantic Versioning.
 
+## [0.2.4] - 2026-08-17
+
+### Changed
+
+- PyPI Mermaid diagrams now use light pastel fills with dark text instead of
+  the dark palette from GitHub. Style directives are rewritten at build time
+  so the committed README keeps the original dark theme for GitHub. Diagrams
+  are rendered as PNG via mermaid.ink for correct aspect ratio on PyPI.
+  No source code changes.
+
 ## [0.2.3] - 2026-08-17
 
 ### Changed
