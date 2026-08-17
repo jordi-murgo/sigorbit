@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sigorbit"
-version = "0.2.1"
+version = "0.2.2"
 description = "Rotation-robust handwritten-signature embeddings with SO(2) canonicalization"
 readme = "README.md"
 requires-python = ">=3.10"
