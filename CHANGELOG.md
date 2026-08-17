@@ -3,6 +3,14 @@
 All notable changes follow [Keep a Changelog](https://keepachangelog.com/) and
 Semantic Versioning.
 
+## [0.2.5] - 2026-08-17
+
+### Changed
+
+- README animated WebP and MP4 demo media now uses CEDAR signer 0006 as both
+  the matching reference and the analyzed candidate sequence. No source-code
+  changes.
+
 ## [0.2.4] - 2026-08-17
 
 ### Changed
