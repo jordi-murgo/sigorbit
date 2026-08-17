@@ -1,7 +1,7 @@
 # SigOrbit
 
 [![CI](https://github.com/jordi-murgo/sigorbit/actions/workflows/ci.yml/badge.svg)](https://github.com/jordi-murgo/sigorbit/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/jordi-murgo/sigorbit/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Rotation-robust handwritten-signature embeddings with continuous SO(2)
 canonicalization and steerable C4/C8 backbones.**
@@ -87,8 +87,8 @@ flowchart TB
   handles continuous rotation, so C4 equivariance (90° symmetry) is sufficient for
   signatures and trains 2.7× faster
 
-See [the architecture notes](https://github.com/jordi-murgo/sigorbit/blob/main/docs/ARCHITECTURE.md) and
-[model card](https://github.com/jordi-murgo/sigorbit/blob/main/docs/MODEL_CARD.md).
+See [the architecture notes](docs/ARCHITECTURE.md) and
+[model card](docs/MODEL_CARD.md).
 
 ## Training and model lineage
 
@@ -109,7 +109,7 @@ checkpoint as `sigorbit-c8-257-v1`; that checkpoint used an older C8 initializer
 whose complete resume history was not archived. The auditable trainer produces
 two from-scratch model IDs: `sigorbit-c8-257-retrained-v1` (C8, batch 32) and
 `sigorbit-c4-257-b64` (C4, batch 64). Neither claims a byte-for-byte
-reproduction of the deployed model. See [training and reproducibility](https://github.com/jordi-murgo/sigorbit/blob/main/docs/TRAINING.md)
+reproduction of the deployed model. See [training and reproducibility](docs/TRAINING.md)
 for all lineages.
 
 ## Install
@@ -205,7 +205,7 @@ restricted to PNG, JPEG and WebP. The in-process Python API deliberately accepts
 trusted `str`/`Path` inputs, so applications must not forward a remote filename
 to `SignatureEncoder.embed()`.
 
-See the [security review](https://github.com/jordi-murgo/sigorbit/blob/main/docs/SECURITY_REVIEW.md) for the threat model,
+See the [security review](docs/SECURITY_REVIEW.md) for the threat model,
 adversarial tests and residual risks.
 
 The server binds to loopback by default. Before binding to a non-loopback
@@ -261,8 +261,8 @@ deletion policies before deployment.
 
 The source code is MIT licensed. The repository contains no training images.
 Before publishing the trained checkpoint, read the completed
-[dataset licence audit](https://github.com/jordi-murgo/sigorbit/blob/main/docs/DATASET_LICENSE_AUDIT.md) and complete
-[RELEASING.md](https://github.com/jordi-murgo/sigorbit/blob/main/docs/RELEASING.md). All 7,560 aggregate images were matched
+[dataset licence audit](docs/DATASET_LICENSE_AUDIT.md) and complete
+[RELEASING.md](docs/RELEASING.md). All 7,560 aggregate images were matched
 pixel-for-pixel to genuine CEDAR and BHSig260 samples. CEDAR has no explicit
 licence grant, while the BHSig260 authors state only “for research purposes”. The Hub uploader's MIT tag therefore
 does not establish a sublicence chain. The local checkpoint is present to
@@ -271,7 +271,7 @@ or counsel approval is recorded.
 
 ## License and citation
 
-Source code: [MIT](https://github.com/jordi-murgo/sigorbit/blob/main/LICENSE). Third-party notices: [NOTICE](https://github.com/jordi-murgo/sigorbit/blob/main/NOTICE).
+Source code: [MIT](LICENSE). Third-party notices: [NOTICE](NOTICE).
 Repository: <https://github.com/jordi-murgo/sigorbit>.
 
 If SigOrbit is useful in research, cite the software as:
@@ -288,7 +288,7 @@ If SigOrbit is useful in research, cite the software as:
 ```
 
 The complete BibTeX bibliography—including the e2cnn, CEDAR and BHSig260
-references—is in [`CITATION.bib`](https://github.com/jordi-murgo/sigorbit/blob/main/CITATION.bib); machine-readable citation
-metadata is in [`CITATION.cff`](https://github.com/jordi-murgo/sigorbit/blob/main/CITATION.cff). Citing a dataset does not imply
+references—is in [`CITATION.bib`](CITATION.bib); machine-readable citation
+metadata is in [`CITATION.cff`](CITATION.cff). Citing a dataset does not imply
 that it has an open licence; consult the
-[dataset licence audit](https://github.com/jordi-murgo/sigorbit/blob/main/docs/DATASET_LICENSE_AUDIT.md).
+[dataset licence audit](docs/DATASET_LICENSE_AUDIT.md).
