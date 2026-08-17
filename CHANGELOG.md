@@ -3,6 +3,14 @@
 All notable changes follow [Keep a Changelog](https://keepachangelog.com/) and
 Semantic Versioning.
 
+## [0.2.3] - 2026-08-17
+
+### Changed
+
+- PyPI Mermaid diagrams now use a light theme (white background, light blue
+  nodes, dark text) for legibility on PyPI's white page. No source code
+  changes.
+
 ## [0.2.2] - 2026-08-17
 
 ### Changed
