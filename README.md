@@ -15,6 +15,16 @@ SigOrbit turns a cropped signature image into a deterministic, L2-normalized
 verification systems that must tolerate arbitrary in-plane rotation without
 making mirrored signatures equivalent.
 
+## Demo
+
+![SigOrbit rotation-robustness demo](docs/assets/sigorbit-demo.webp)
+
+The analyzed signatures are compared with six references while rotation, scale,
+noise, blur and contrast vary. The matching reference remains identifiable in
+the per-reference cosine-similarity traces.
+
+[Watch or download the MP4 version](docs/assets/sigorbit-demo.mp4).
+
 > **Alpha release.** SigOrbit generates embeddings; it is not a complete fraud
 > detector, legal signature verifier, document detector, identity database or
 > anti-spoofing system. Do not use one model score as the sole basis for legal,
