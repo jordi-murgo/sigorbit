@@ -14,8 +14,12 @@ Permission request: ML training and public derived-weight release from
 Dear `[dataset owner/rightsholder]`,
 
 We are preparing SigOrbit, an open-source Python implementation of a
-rotation-robust handwritten-signature embedding model. We identified the exact
-training subset as `[1,320 CEDAR genuine images / 6,240 BHSig260 genuine images]`.
+rotation-robust handwritten-signature embedding model. The source code is
+already published at https://github.com/jordi-murgo/sigorbit and distributed
+on PyPI at https://pypi.org/project/sigorbit/ . We intend to distribute the
+trained model weights as part of the same PyPI package, so that users can
+install the library and run inference without a separate download.
+We identified the exact training subset as `[1,320 CEDAR genuine images / 6,240 BHSig260 genuine images]`.
 We do not plan to redistribute any source signature image.
 
 Please confirm whether you authorize all of the following:
@@ -40,6 +44,8 @@ Model details:
 - training used genuine samples only, with synthetic rotations;
 - no raw images or reconstructed samples will be shipped;
 - the checkpoint is currently withheld pending your response.
+- source code: https://github.com/jordi-murgo/sigorbit
+- PyPI package: https://pypi.org/project/sigorbit/
 
 A reply should be reviewed by our legal/privacy team before release.
 
