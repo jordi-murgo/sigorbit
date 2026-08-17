@@ -307,7 +307,7 @@ def create_app(
 
     application = FastAPI(
         title="SigOrbit Embeddings",
-        version="0.1.0",
+        version="0.2.1",
         description=(
             "Example API for rotation-robust handwritten-signature embeddings. "
             "It accepts cropped signatures and does not perform identity decisions."

@@ -3,6 +3,16 @@
 All notable changes follow [Keep a Changelog](https://keepachangelog.com/) and
 Semantic Versioning.
 
+## [0.2.1] - 2026-08-17
+
+### Changed
+
+- Repository renamed to `jordi-murgo/sigorbit` (lowercase). All URLs in
+  `pyproject.toml`, `CITATION.bib`, `CITATION.cff`, `README.md` and docs
+  updated to the new canonical repository path.
+- README relative links now rewritten to absolute GitHub URLs at build
+  time so they resolve correctly on PyPI. No source code changes.
+
 ## [0.2.0] - 2026-08-10
 
 ### Changed
