@@ -90,6 +90,22 @@ flowchart TB
 See [the architecture notes](docs/ARCHITECTURE.md) and
 [model card](docs/MODEL_CARD.md).
 
+The end-to-end workflow wraps three training stages:
+
+1. validate an immutable local manifest and a separate rights attestation;
+2. train the C4 or C8 backbone from random weights with PK sampling, discrete rotation
+   augmentation and a temporary ArcFace head;
+3. restore the best backbone and train only the SO(2) canonicalizer against
+   known synthetic angles;
+4. jointly optimize canonicalizer, backbone and ArcFace head using identity,
+   circular-orientation and cosine-consistency objectives;
+5. evaluate on signer-disjoint validation identities, restore the best joint
+   checkpoint and export an inference-only SigOrbit artifact.
+
+There are no reflections: the symmetry is SO(2)+C_N (N = group_order), not O(2)/D_N.
+The ArcFace classifier, optimizers and schedulers exist only in recovery
+checkpoints; the deployable artifact contains the canonicalizer and backbone.
+
 ## Training and model lineage
 
 The runtime package owns the exact model and preprocessing classes. The companion
